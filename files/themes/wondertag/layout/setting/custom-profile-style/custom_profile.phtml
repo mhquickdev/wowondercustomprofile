@@ -1,0 +1,138 @@
+<!--
+=================
+MHQuickDev
+Mahmudul Hasan
+www.mhquickdev.custom
+=========================
+
+-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+<style>
+	.tag_sett_sidebar {
+    top: 56px;
+	}
+</style>
+
+
+</head>
+<body>
+
+<div class="row">
+			<div class="col-md-12"><?php echo Wo_LoadPage('setting/user-setting-sidebar');?></div>
+</div>
+
+
+<?php 			
+	global $wo, $sqlConnect;
+	$connectsql = $sqlConnect;
+	if ($connectsql==false) {
+		echo "<h1>Connection Lost</h1>";
+	}
+
+	$myquery = "SELECT * FROM custom_profile_style WHERE user_id = {$wo['user']['user_id']};";
+		$run_query = mysqli_query($connectsql, $myquery);
+
+		if ($run_query==true) {
+			$dataCount = mysqli_num_rows($run_query);
+			
+			if ($dataCount>0) {
+				while ($mydata = mysqli_fetch_array($run_query)) {
+				$bgColor = $mydata[background];
+				$color = $mydata[color];
+				$customFont = $mydata[font];
+
+					
+				}
+			}
+		}
+?>
+<div class="page-margin tag_hdr_top_sett">
+	<div class="container">
+		<div class="row">
+<h2 class="tag_page_title p20"><button type="button" class="btn setting_navigation" onclick="$('.tag_sett_sidebar').fadeIn(50);$('#tag_sett_right_prt').fadeOut(50);"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" fill="currentColor"></path></svg></button> <?php echo "Profile Style"; ?></h2>
+
+<div class="col-lg-10 tag_sett_page tag_mobi_sett_page" id="tag_sett_right_prt">
+
+<div class="wow_sett_content wow_content p20">
+
+	<form class="setting-general-form form-horizontal tag_field_full_margin wo_settings_page" action="<?php echo Wo_SeoLink('index.php?link1=' ."custom_profile_php");?>" method="post">
+
+	<label class="tag_field">
+		<input type="color" value="<?php echo $color; ?>" name="color">
+		<span>Color</span>
+	</label>
+	<label class="tag_field">
+		<input type="color" value="<?php echo $bgColor; ?>" name="background_color">
+		<span>Background Color</span>
+	</label>
+	
+<label class="tag_field">
+	
+	<select id="custom_font" name="font">
+
+
+		
+		
+		<?php 
+
+		if(!empty($customFont)){
+			echo "<option value='{$customFont}'>{$customFont}</option>";
+		}
+		if($customFont=="Staatliches"){
+			echo "<option hidden value='Staatliches'>Staatliches</option>";
+		}else{
+			echo "<option value='Staatliches'>Staatliches</option>";
+		}
+		
+		if($customFont=="Trispace"){
+			echo "<option hidden value='Trispace'>Trispace</option>";
+		}else{
+			echo "<option value='Trispace'>Trispace</option>";
+		}
+
+		if($customFont=="Grandstander"){
+			echo "<option hidden value='Grandstander'>Grandstander</option>";
+		}else{
+			echo "<option value='Grandstander'>Grandstander</option>";
+		}
+
+		if($customFont=="Krona One"){
+			echo "<option hidden value='Krona One'>Krona One</option>";
+		}else{
+			echo "<option value='Krona One'>Krona One</option>";
+		}
+		if($customFont=="Pacifico"){
+			echo "<option hidden value='Pacifico'>Pacifico</option>";
+		}else{
+			echo "<option value='Pacifico'>Pacifico</option>";
+		}
+	
+		?>
+	</select>
+
+<span>Select Font</span>
+</label>
+	
+<div class="text-center">
+	<button class='btn btn-main btn-mat btn-mat-raised' name='submit_btn'>Submit</button>
+</div>
+	</form>
+
+	</div>
+	</div>
+	</div>
+
+	</div>
+
+	</div>
+</body>
+</html>
+

@@ -1,0 +1,75 @@
+<!--
+=================
+MHQuickDev
+Mahmudul Hasan
+www.mhquickdev.custom
+=========================
+
+-->
+
+<?php
+global $wo, $sqlConnect;
+$connectsql = $sqlConnect;
+if ($connectsql==false) {
+	echo "<h1>Connection Lost</h1>";
+}
+
+$user_id = $wo['user']['user_id'];
+$color1 = $_POST['color'];
+$background_color = $_POST['background_color'];
+$custom_font = $_POST['font'];
+
+
+$myquery = "SELECT * FROM custom_profile_style WHERE user_id = {$wo['user']['user_id']};";
+		$run_query = mysqli_query($connectsql, $myquery);
+
+		if ($run_query==true) {
+			$dataCount = mysqli_num_rows($run_query);
+			
+			if ($dataCount>0) {
+				while ($mydata = mysqli_fetch_array($run_query)) {
+				$bgColor = $mydata[background];
+				$color = $mydata[color];
+				$customFont = $mydata[font];
+				$db_user_id = $mydata[user_id];
+
+					
+				}
+			}
+		}
+
+
+if(!empty($customFont)){
+
+$sql = "UPDATE custom_profile_style SET color='$color1', background='$background_color', font='$custom_font'  WHERE user_id=$user_id";
+
+if ($connectsql->query($sql) === TRUE) {
+   header("Location:   {$wo['user']['url']}");
+    exit();
+} else {
+  echo "Error updating record: " . $connectsql->error;
+}
+
+$connectsql->close();
+
+
+}elseif($db_user_id!=$user_id){
+
+	$sql = "INSERT INTO custom_profile_style (user_id, color, background, font)
+VALUES ('$user_id','$color1','$background_color', '$custom_font')";
+
+if ($connectsql->query($sql) === TRUE) {
+header("Location:   {$wo['user']['url']}");
+exit();
+} else {
+echo "Error: " . $sql . "<br>" . $connectsql->error;
+}
+
+$connectsql->close();
+
+
+}
+
+?>
+
+
