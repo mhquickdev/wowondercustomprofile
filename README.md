@@ -2,8 +2,9 @@
 MHQuickDev
 Mahmudul Hasan
 www.mhquickdev.custom
+
 Support: mahmudul0070@gmail.com
-Contact us for free installation
+Contact us for Any Type Custom work.
 =========================
 
 Changed File Path
